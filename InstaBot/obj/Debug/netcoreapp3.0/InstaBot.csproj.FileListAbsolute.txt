@@ -1,0 +1,14 @@
+G:\C#\Project\InstaBot\InstaBot\bin\Debug\netcoreapp3.0\InstaBot.exe
+G:\C#\Project\InstaBot\InstaBot\obj\Debug\netcoreapp3.0\InstaBot.csprojAssemblyReference.cache
+G:\C#\Project\InstaBot\InstaBot\obj\Debug\netcoreapp3.0\InstaBot.AssemblyInfoInputs.cache
+G:\C#\Project\InstaBot\InstaBot\obj\Debug\netcoreapp3.0\InstaBot.AssemblyInfo.cs
+G:\C#\Project\InstaBot\InstaBot\bin\Debug\netcoreapp3.0\InstaBot.deps.json
+G:\C#\Project\InstaBot\InstaBot\bin\Debug\netcoreapp3.0\InstaBot.runtimeconfig.json
+G:\C#\Project\InstaBot\InstaBot\bin\Debug\netcoreapp3.0\InstaBot.runtimeconfig.dev.json
+G:\C#\Project\InstaBot\InstaBot\bin\Debug\netcoreapp3.0\InstaBot.dll
+G:\C#\Project\InstaBot\InstaBot\bin\Debug\netcoreapp3.0\InstaBot.pdb
+G:\C#\Project\InstaBot\InstaBot\bin\Debug\netcoreapp3.0\InstaSharper.dll
+G:\C#\Project\InstaBot\InstaBot\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+G:\C#\Project\InstaBot\InstaBot\obj\Debug\netcoreapp3.0\InstaBot.csproj.CopyComplete
+G:\C#\Project\InstaBot\InstaBot\obj\Debug\netcoreapp3.0\InstaBot.dll
+G:\C#\Project\InstaBot\InstaBot\obj\Debug\netcoreapp3.0\InstaBot.pdb

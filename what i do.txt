@@ -1,0 +1,4 @@
+1-follow users from another followers 
+2-follow users from following
+3-like all users media (new follower)
+4-follow and like by username and go follower
