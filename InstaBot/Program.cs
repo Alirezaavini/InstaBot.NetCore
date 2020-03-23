@@ -1,10 +1,14 @@
 ﻿using System;
+using System.IO;
+using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using InstaSharper;
 using InstaSharper.API;
 using InstaSharper.API.Builder;
 using InstaSharper.Classes;
 using InstaSharper.Logger;
+using Newtonsoft.Json.Linq;
 
 namespace InstaBot
 {
@@ -16,18 +20,21 @@ namespace InstaBot
         private static IInstaApi api;
         static void Main(string[] args)
         {
+            MainMethod();
+        }
+
+
+        public static async void MainMethod()
+        {
             Console.WriteLine("Welcome! \nPlease enter username");
             string username = Console.ReadLine();
             Console.WriteLine("Please enter password:");
             string pass = GetPassword();
 
-            Login(username,pass);
+            Login(username, pass);
 
-            Thread.Sleep(1000);
-
+         
             Console.ReadLine();
-
-
         }
 
         public static string GetPassword()
@@ -57,7 +64,7 @@ namespace InstaBot
             } while (true);
             return pass;
         }
-        public static async void Login(string username,string password)
+        public static async void Login(string username, string password)
         {
             user = new UserSessionData();
             user.UserName = username;
@@ -71,22 +78,74 @@ namespace InstaBot
             var loginresult = await api.LoginAsync();
             if (loginresult.Succeeded)
             {
-                Console.Clear();
+                //Console.Clear();
                 Console.BackgroundColor = ConsoleColor.Green;
                 Console.ForegroundColor = ConsoleColor.White;
-                //Console.Clear();
+                Console.Clear();
                 Console.Beep(800, 200);
-                Console.Title =username;
+                Console.Title = username;
                 Console.WriteLine("\nLoggined");
+                FollowFollowers(username);
+
+
             }
             else
                 Console.WriteLine("error: \n" + loginresult.Info.Message);
 
         }
 
-        public static async void FollowerCount()
+        public static async void FollowerCount(string username)
         {
+            var followers = await api.GetUserFollowersAsync(username,
+                PaginationParameters.MaxPagesToLoad(5));
+            Console.WriteLine("f = {0}", followers.Value.Count);
+        }
 
+        public static void FollowFollowers(string username)
+        {
+            var followers = api.GetUserFollowersAsync("alireza_avini",
+                PaginationParameters.MaxPagesToLoad(5));            
+           
+            Console.WriteLine("followers count is: {0}", followers.Result.Value.Count);
+            Console.WriteLine("please wait we are following user folowers");
+            foreach (var item in followers.Result.Value)
+            {
+                string json = GetRequest("https://www.instagram.com/" + item.UserName + "/?__a=1");
+                JObject rss = JObject.Parse(json);
+                long userId = (long)rss["graphql"]["user"]["id"];
+                Console.WriteLine(userId);
+                api.FollowUserAsync(userId);
+            }
+            Console.WriteLine("done");
+        }
+
+
+
+        public static string GetRequest(string url)
+        {
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                //httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "GET";
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var resultString = streamReader.ReadToEnd();
+
+                    if (httpResponse.StatusCode == HttpStatusCode.OK)
+                    {
+                        return resultString;
+                    }
+                    return "";
+
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return "";
+            }
         }
 
     }
