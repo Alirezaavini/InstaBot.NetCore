@@ -7,6 +7,7 @@ using InstaSharper;
 using InstaSharper.API;
 using InstaSharper.API.Builder;
 using InstaSharper.Classes;
+using InstaSharper.Classes.Models;
 using InstaSharper.Logger;
 using Newtonsoft.Json.Linq;
 
@@ -85,9 +86,7 @@ namespace InstaBot
                 Console.Beep(800, 200);
                 Console.Title = username;
                 Console.WriteLine("\nLoggined");
-                FollowFollowers(username);
-
-
+                AllMedia(username);
             }
             else
                 Console.WriteLine("error: \n" + loginresult.Info.Message);
@@ -119,7 +118,12 @@ namespace InstaBot
             Console.WriteLine("done");
         }
 
+        public static async void AllMedia(string username)
+        {
+            var mediaList = new InstaMediaList();
+            var result = await api.GetUserMediaAsync(username, PaginationParameters.Empty);          
 
+        }
 
         public static string GetRequest(string url)
         {
